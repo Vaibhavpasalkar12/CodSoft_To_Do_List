@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        
+
+        form {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 8px 16px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        h2{
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        li {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        li button {
+            background-color: grey;
+        }
+        p{
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to Todo List</h1>
+    <form action="/add_task" method="post">
+        <label for="task">Add a new task:</label>
+        <input type="text" id="task" name="task">
+        <button type="submit">Add Task</button>
+    </form>
+
+    <h2>Current Tasks:</h2>
+    {% if tasks_count > 0 %}
+    <ul>
+        {% for i in range(tasks_count) %}
+        <li>
+            <span>Task #{{ i+1 }}:</span> {{ tasks[i] }}
+            <form action="{{ url_for('delete_task', task_id=i) }}" method="post" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No tasks currently.</p>
+    {% endif %}
+</body>
+
+</html>
